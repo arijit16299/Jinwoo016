@@ -63,7 +63,7 @@ module.exports = {
     onChat: async function ({ event, message, getLang }) {
         if (event.body && event.body.toLowerCase() === "prefix") {
             try {
-                const videoUrl = "https://files.catbox.moe/zubdm0.mp4";
+                const videoUrl = "https://files.catbox.moe/gmibyz.mp4";
 
                 return message.reply({
                     body: getLang("myPrefix", global.GoatBot.config.prefix, utils.getPrefix(event.threadID)),
