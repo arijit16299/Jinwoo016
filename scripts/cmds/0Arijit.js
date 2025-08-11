@@ -14,7 +14,7 @@ module.exports = {
   onStart: async function () {},
 
   onChat: async function ({ event, message }) {
-    const triggers = ["arijit", "aru", "bot","arjit"];
+    const triggers = ["arijit", "aru","arjit"];
     if (event.body && triggers.includes(event.body.toLowerCase())) {
       return message.reply({
         body: `
