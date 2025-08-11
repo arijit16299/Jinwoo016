@@ -17,7 +17,7 @@ module.exports = {
     const body = event.body.toLowerCase();
 
     // Trigger words
-    const triggers = ["owner", "bot owner", "who is owner", "alya owner"];
+    const triggers = ["owner", "bot owner", "who is owner", "naruto owner"];
     if (!triggers.includes(body)) return;
 
     const userData = await usersData.get(event.senderID);
@@ -46,14 +46,14 @@ module.exports = {
 │➢ 𝐅𝐚𝐜𝐞𝐛𝐨𝐨𝐤 : 𝐍𝐞𝐟𝐚𝐫𝐢𝐨𝐮𝐬 𝐀𝐫𝐢𝐣𝐢𝐭 𝐈𝐈
 ╰➢ 𝐈𝐧𝐬𝐭𝐚𝐠𝐫𝐚𝐦 : 𝐢𝐭𝐳_𝐚𝐫𝐢𝐣𝐢𝐭_𝟕𝟕𝟕   
 
-╭➢ 𝐁𝐎𝐓 : 𝐀𝐥𝐲𝐚 𝐂𝐡𝐚𝐧 🐱🎀
+╭➢ 𝐁𝐎𝐓 : 𝐌𝐫. 𝐁𝐨𝐭 🤖
 │➢ 𝐆𝐫𝐨𝐮𝐩 𝐍𝐚𝐦𝐞: ${threadName}
 ╰➢ 🕒 ${dateStr} | ${timeStr}
 ━━━━━━━━━━━━━━━`;
 
     return message.reply({
       body: infoMessage,
-      attachment: await global.utils.getStreamFromURL("https://files.catbox.moe/klc7er.mp4")
+      attachment: await global.utils.getStreamFromURL("https://files.catbox.moe/umiyel.mp4")
     });
   }
 };
