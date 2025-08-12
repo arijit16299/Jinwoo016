@@ -9,7 +9,7 @@ module.exports = {
     category: "TOOLS"
   },
 
-  onStart: async function({ api, event, usersData }) {  
+  onStart: async function ({ api, event, usersData }) {
     try {
       const senderData = await usersData.get(event.senderID);
       const senderName = senderData.name;
@@ -21,7 +21,7 @@ module.exports = {
         return api.sendMessage("❌ Undefined gender, cannot find match.", event.threadID, event.messageID);
       }
 
-      const myGender = myData.gender;
+      const myGender = myData.gender.toUpperCase();
       let matchCandidates = [];
 
       if (myGender === "MALE") {
@@ -40,7 +40,7 @@ module.exports = {
       const matchName = selectedMatch.name;
       const lovePercentage = Math.floor(Math.random() * 100) + 1;
 
-      // Canvas part
+      // Canvas setup
       const width = 800, height = 400;
       const canvas = createCanvas(width, height);
       const ctx = canvas.getContext('2d');
@@ -59,11 +59,11 @@ module.exports = {
       stream.pipe(out);
 
       out.on('finish', () => {
-        const message = 🥰𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥 𝐩𝐚𝐢𝐫𝐢𝐧𝐠\n +
-                        • ${senderName}🎀\n +
-                        • ${matchName}🎀\n +
-                        💌𝐖𝐢𝐬𝐡 𝐲𝐨𝐮 𝐭𝐰𝐨 𝐡𝐮𝐧𝐝𝐫𝐞𝐝 𝐲𝐞𝐚𝐫𝐬 𝐨𝐟 𝐡𝐚𝐩𝐩𝐢𝐧𝐞𝐬𝐬💕\n\n +
-                        𝐋𝐨𝐯𝐞 𝐩𝐞𝐫𝐜𝐞𝐧𝐭𝐚𝐠𝐞 ${lovePercentage}%💙;
+        const message = `🥰𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥 𝐩𝐚𝐢𝐫𝐢𝐧𝐠\n` +
+                        `• ${senderName} 🎀\n` +
+                        `• ${matchName} 🎀\n` +
+                        `💌 𝐖𝐢𝐬𝐡 𝐲𝐨𝐮 𝐭𝐰𝐨 𝐡𝐮𝐧𝐝𝐫𝐞𝐝 𝐲𝐞𝐚𝐫𝐬 𝐨𝐟 𝐡𝐚𝐩𝐩𝐢𝐧𝐞𝐬𝐬 💕\n\n` +
+                        `𝐋𝐨𝐯𝐞 𝐩𝐞𝐫𝐜𝐞𝐧𝐭𝐚𝐠𝐞: ${lovePercentage}% 💙`;
 
         api.sendMessage({
           body: message,
