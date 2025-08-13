@@ -1,6 +1,6 @@
 module.exports = {
   config: {
-    name: "arijit",
+    name: "aru",
     aliases: ["arijit", "aru"],
     version: "1.0",
     author: "Tokodori_Frtiz", // remodified by cliff
