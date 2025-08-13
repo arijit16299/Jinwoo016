@@ -1,86 +1,43 @@
-const fs = require("fs-extra");
 const axios = require("axios");
-const path = require("path");
 
-module.exports = {
-  config: {
-    name: "4k",
-    version: "1.1",
-    author: "Raihan Fiba",
-    countDown: 5,
-    role: 0,
-    shortDescription: "Upscale image to 4K",
-    longDescription: "Upscale replied image to 4K quality using Kaiz API",
-    category: "image",
-    guide: {
-      en: "{p}4k (reply to an image)"
-    }
-  },
+const baseApiUrl = async () => {
+  const base = await axios.get(
+    `https://raw.githubusercontent.com/Blankid018/D1PT0/main/baseApiUrl.json`
+  );
+  return base.data.mostakim;
+};
+module.exports.config = {
+  name: "4k",
+  aliases: ["4k", "remini"],
+  category: "enhanced",
+  author: "Romim"
+};
 
-  onStart: async function ({ api, event }) {
-    const { messageReply, threadID, messageID } = event;
+module.exports.onStart = async ({ api, event, args }) => {
+  try {
 
-    if (
-      !messageReply ||
-      !messageReply.attachments ||
-      messageReply.attachments.length === 0 ||
-      messageReply.attachments[0].type !== "photo"
-    ) {
-      return api.sendMessage(
-        "❌ | Please reply to an image to upscale it to 4K.",
-        threadID,
-        messageID
-      );
+    if (!event.messageReply || !event.messageReply.attachments || !event.messageReply.attachments[0]) {
+      return api.sendMessage("𝐏𝐥𝐞𝐚𝐬𝐞 𝐫𝐞𝐩𝐥𝐲 𝐭𝐨 𝐚𝐧 𝐢𝐦𝐚𝐠𝐞 𝐰𝐢𝐭𝐡 𝐭𝐡𝐞 𝐜𝐨𝐦𝐦𝐚𝐧𝐝.", event.threadID, event.messageID);
     }
 
-    // Send "Processing..." message
-    const waitMsg = await api.sendMessage(
-      "⏳ | 𝐏𝐥𝐞𝐚𝐬𝐞 𝐰𝐚𝐢𝐭, 𝐩𝐫𝐨𝐜𝐞𝐬𝐬𝐢𝐧𝐠...",
-      threadID,
-      messageID
-    );
 
-    const imgUrl = encodeURIComponent(messageReply.attachments[0].url);
-    const apiUrl = `https://kaiz-apis.gleeze.com/api/upscale?imageUrl=${imgUrl}&apikey=f2ce3b96-a3a7-4693-a19e-3daf4aa64675`;
+    const Romim = event.messageReply?.attachments[0]?.url;
 
-    const tmpPath = path.join(__dirname, "cache", `${Date.now()}_4k.jpg`);
 
-    try {
-      const response = await axios.get(apiUrl, { responseType: "stream" });
+    const apiUrl = (`${await baseApiUrl()}/remini?input=${encodeURIComponent(Romim)}`);
+ 
 
-      response.data
-        .pipe(fs.createWriteStream(tmpPath))
-        .on("finish", async () => {
-          // Remove "Processing..." message
-          await api.unsendMessage(waitMsg.messageID);
+    const imageStream = await axios.get(apiUrl,{
+      responseType: 'stream'
+    });
 
-          // Send the upscaled image
-          api.sendMessage(
-            {
-              body: "✅ | Here is your 4K upscaled image.",
-              attachment: fs.createReadStream(tmpPath)
-            },
-            threadID,
-            () => fs.unlinkSync(tmpPath)
-          );
-        })
-        .on("error", async (err) => {
-          console.error(err);
-          await api.unsendMessage(waitMsg.messageID);
-          api.sendMessage(
-            "❌ | Failed to upscale the image. Please try again later.",
-            threadID,
-            messageID
-          );
-        });
-    } catch (e) {
-      console.error(e);
-      await api.unsendMessage(waitMsg.messageID);
-      api.sendMessage(
-        "❌ | Failed to upscale the image. Please try again later.",
-        threadID,
-        messageID
-      );
-    }
+
+    api.sendMessage({
+      body: "𝐇𝐞𝐫𝐞 𝐢𝐬 𝐲𝐨𝐮𝐫 𝐞𝐧𝐡𝐚𝐧𝐜𝐞𝐝 𝐩𝐡𝐨𝐭𝐨",
+      attachment: imageStream.data
+    }, event.threadID, event.messageID);
+
+  } catch (e) {
+    api.sendMessage(`Error: ${e.message}`, event.threadID, event.messageID);
   }
 };
