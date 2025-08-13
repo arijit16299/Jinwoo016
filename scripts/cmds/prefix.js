@@ -22,8 +22,9 @@ module.exports = {
             successThisThread: "Changed prefix in your chat to: %1",
             myPrefix:
 `━━━━〔 𝐌𝐫.𝐁𝐨𝐭 🤖 〕━━━━
-  🖥 𝐒𝐲𝐬𝐭𝐞𝐦 𝐩𝐫𝐞𝐟𝐢𝐱: [ %1 ]
-  🌐 𝐘𝐨𝐮𝐫 𝐠𝐫𝐨𝐮𝐩 𝐩𝐫𝐞𝐟𝐢𝐱: [ %2 ]
+
+  🖥 𝐒𝐲𝐬𝐭𝐞𝐦 𝐩𝐫𝐞𝐟𝐢𝐱: [ ! ]
+  🌐 𝐘𝐨𝐮𝐫 𝐠𝐫𝐨𝐮𝐩 𝐩𝐫𝐞𝐟𝐢𝐱: [ ! ]
 
 ╭➢ 𝐀𝐝𝐦𝐢𝐧 👑
 ╰➢ 𝐀 𝐑 𝐈 𝐉 𝐈 𝐓⚡
