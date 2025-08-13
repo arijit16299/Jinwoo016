@@ -1,11 +1,10 @@
-const axios = require("axios");
 const fs = require("fs");
 const utils = global.utils;
 
 module.exports = {
     config: {
         name: "prefix",
-        version: "1.8",
+        version: "2.0",
         author: "Arijit",
         countDown: 5,
         role: 0,
@@ -45,7 +44,7 @@ module.exports = {
 
         if (args[1] === "-g") {
             if (role < 2) return message.reply(getLang("onlyAdmin"));
-            else formSet.setGlobal = true;
+            formSet.setGlobal = true;
         } else {
             formSet.setGlobal = false;
         }
@@ -62,17 +61,9 @@ module.exports = {
 
     onChat: async function ({ event, message, getLang }) {
         if (event.body && event.body.toLowerCase() === "prefix") {
-            try {
-
-                return message.reply({
-                    body: getLang("myPrefix", global.GoatBot.config.prefix, utils.getPrefix(event.threadID)),
-                    attachment: await global.utils.getStreamFromURL(videoUrl)
-                });
-
-            } catch (error) {
-                console.error("Error fetching video:", error);
-                return message.reply("An error occurred while fetching the video.");
-            }
+            return message.reply(
+                getLang("myPrefix", global.GoatBot.config.prefix, utils.getPrefix(event.threadID))
+            );
         }
     },
 
